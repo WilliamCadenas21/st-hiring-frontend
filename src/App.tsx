@@ -1,22 +1,31 @@
+import {
+  Container,
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
+import ClientConfigViewer from "./features/clientConfig/components/ClientConfigViewer";
+
+const theme = createTheme({
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#1976d2",
+    },
+    background: {
+      default: "#f5f5f5",
+    },
+  },
+});
+
 function App() {
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-      }}
-    >
-      <h1>See Tickets </h1>
-      <div className="card">
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Container>
+        <ClientConfigViewer />
+      </Container>
+    </ThemeProvider>
   );
 }
 
