@@ -99,7 +99,7 @@ const ClientConfigViewer: React.FC = () => {
   );
 
   return (
-    <Box sx={{ maxWidth: 900, mx: "auto", p: 3 }}>
+    <Box sx={{ maxWidth: 1100, mx: "auto", p: 3 }}>
       <Paper
         component="form"
         onSubmit={handleSubmit}

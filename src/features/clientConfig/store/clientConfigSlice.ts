@@ -118,6 +118,7 @@ const clientConfigSlice = createSlice({
       )
       .addCase(fetchClientConfig.rejected, (state, action) => {
         state.loading = false;
+        state.data = null;
         state.error =
           action.error.message || "Failed to fetch client configuration";
       });
