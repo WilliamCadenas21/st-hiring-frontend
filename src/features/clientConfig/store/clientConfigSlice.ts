@@ -1,18 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ClientConfig, ClientConfigState } from "./types";
-
-export const fetchClientConfig = createAsyncThunk(
-  "clientConfig/fetchClientConfig",
-  async (clientId: number) => {
-    const response = await fetch(
-      `http://localhost:3000/mobile-config-by-client-id?clientId=${clientId}`
-    );
-    if (!response.ok) {
-      throw new Error("Failed to fetch client configuration");
-    }
-    return response.json() as Promise<ClientConfig>;
-  }
-);
+import { fetchClientConfig, updateClientConfig } from "./clientConfigThunks";
 
 const initialState: ClientConfigState = {
   data: null,
@@ -104,6 +92,7 @@ const clientConfigSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Fetch client config cases
       .addCase(fetchClientConfig.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -121,6 +110,24 @@ const clientConfigSlice = createSlice({
         state.data = null;
         state.error =
           action.error.message || "Failed to fetch client configuration";
+      })
+      // Update client config cases
+      .addCase(updateClientConfig.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        updateClientConfig.fulfilled,
+        (state, action: PayloadAction<ClientConfig>) => {
+          state.loading = false;
+          state.data = action.payload;
+          state.error = null;
+        }
+      )
+      .addCase(updateClientConfig.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          action.error.message || "Failed to update client configuration";
       });
   },
 });

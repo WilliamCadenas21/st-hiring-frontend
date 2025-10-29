@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
-import { fetchClientConfig } from "../store/clientConfigSlice";
 import { ClientConfig } from "../store/types";
 import {
   Box,
@@ -18,6 +17,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { Check, Close } from "@mui/icons-material";
+import { fetchClientConfig } from "../store/clientConfigThunks";
 
 const ClientConfigViewer: React.FC = () => {
   const [clientId, setClientId] = useState("");
@@ -79,7 +79,7 @@ const ClientConfigViewer: React.FC = () => {
   const renderBooleanGroup = (items: { label: string; value: boolean }[]) => (
     <Grid container spacing={2}>
       {items.map(({ label, value }) => (
-        <Grid size={4}>
+        <Grid size={4} key={label}>
           <Box
             sx={{
               display: "flex",

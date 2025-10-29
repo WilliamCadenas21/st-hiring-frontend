@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { configureStore } from "@reduxjs/toolkit";
-import clientConfigReducer, { fetchClientConfig } from "./clientConfigSlice";
+import clientConfigReducer from "./clientConfigSlice";
+import { fetchClientConfig } from "./clientConfigThunks";
 import { rest } from "msw";
 import { server } from "../../../mocks/server";
 
@@ -24,7 +25,7 @@ describe("clientConfig slice", () => {
   it("handles fetch error (rejected)", async () => {
     // Override handler to return 500
     server.use(
-      rest.get("http://localhost:3000/mobile-config-by-client-id", (_req, res, ctx) => {
+      rest.get("http://localhost:3000/mobile-config", (_req, res, ctx) => {
         return res(ctx.status(500));
       })
     );

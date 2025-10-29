@@ -50,9 +50,8 @@ const exampleResponse = {
 };
 
 export const handlers = [
-  rest.get("http://localhost:3000/mobile-config-by-client-id", (req, res, ctx) => {
+  rest.get("http://localhost:3000/mobile-config", (req, res, ctx) => {
     const clientId = req.url.searchParams.get("clientId");
-    // you can vary response based on id if needed
     return res(
       ctx.status(200),
       ctx.json({ ...exampleResponse, clientId: Number(clientId) })
